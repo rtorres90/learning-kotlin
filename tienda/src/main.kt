@@ -7,7 +7,7 @@ fun main() {
     val myShop = Shop(shopName)
     println("Welcome to the Shop '${myShop.name}'")
 
-    val options = listOf("Create Product.", "List Products", "Exit")
+    val options = listOf("Create Product.", "List Products", "Filter by Category", "Show prices with discount","Exit")
     var selection = -1
     do {
         println("\nMenú:")
@@ -43,7 +43,23 @@ fun main() {
                     println(product)
                 }
             }
-            3 -> break
+            3 -> {
+                println("Please provide a category to filter")
+                val category = readln()
+                val filteredList = myShop.products.filter { it.category.equals(category, ignoreCase = true) }.toList()
+                println(filteredList)
+            }
+            4 -> {
+                println("Please provide the percentage of discount (1 to 99)")
+                val discount = readln().toInt()
+                val discountedList = myShop.products.map { it.price * ((100 - discount) / 100.0)}.toList()
+                println(discountedList)
+            }
+            5 -> {
+                val result = myShop.products.fold(0.0){acc , product -> acc + (product.price * product.quantity)}
+                println("The total of all products is $result")
+            }
+            else -> break
         }
 
     } while (true)
