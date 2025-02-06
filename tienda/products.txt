@@ -1,0 +1,2 @@
+Leche de chocolate|1000.0|20|Lacteo
+Pechuga de Pollo|3000.0|10|Carnes
