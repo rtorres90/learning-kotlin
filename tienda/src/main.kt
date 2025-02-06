@@ -35,54 +35,27 @@ fun main() {
 
         when (selection) {
 
-            1 -> {
-                println("Provide a product name:")
-                val productName = readlnOrNull() ?: "Test Product"
-                println("Provide a product price:")
-                val productPrice = (readlnOrNull() ?: "0.0").toDouble()
-                println("Provide a product quantity:")
-                val productQty = (readlnOrNull() ?: "0").toInt()
-                println("Provide a product category:")
-                val productCategory = readlnOrNull() ?: "Test"
-                myShop.products.add(Product(productName, productPrice, productQty, productCategory))
-            }
+            1 -> myShop.addProduct()
 
-            2 -> {
-                for (product in myShop.products) {
-                    println(product)
-                }
-            }
+            2 -> myShop.listProducts()
 
             3 -> {
                 println("Please provide a category to filter")
-                val category = readln()
-                val filteredList = myShop.products.filter { it.category.equals(category, ignoreCase = true) }.toList()
-                println(filteredList)
+                val category = readlnOrNull() ?: ""
+                myShop.filterProductsByCategory(category)
             }
 
             4 -> {
                 println("Please provide the percentage of discount (1 to 99)")
                 val discount = readln().toInt()
-                val discountedList = myShop.products.map { it.price * ((100 - discount) / 100.0) }.toList()
-                println(discountedList)
+                myShop.showPricesWithDiscount(discount)
             }
 
-            5 -> {
-                val result = myShop.products.fold(0.0) { acc, product -> acc + (product.price * product.quantity) }
-                println("The total of all products is $result")
-            }
+            5 -> myShop.showTotalOfAllProducts()
 
-            6 -> {
-                val mostExpensive = myShop.products.maxByOrNull { it.price * it.quantity }
-                println("The most expensive item is: $mostExpensive")
-            }
+            6 -> myShop.showMostExpensiveProduct()
 
-            7 -> {
-                myShop.products.groupBy { it.category }.forEach { (category, productsInCategory) ->
-                    println("Category $category")
-                    productsInCategory.forEach{ println(it) }
-                }
-            }
+            7 -> myShop.groupProductsByCategory()
 
             else -> break
         }
