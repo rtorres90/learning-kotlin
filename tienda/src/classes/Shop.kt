@@ -29,7 +29,7 @@ data class Shop(var name: String) {
     }
 
     fun listProducts(products: List<Product>? = null) {
-        (products ?: this.products).forEach { println(it) }
+        (products ?: this.products).forEach { it.printDetails() }
     }
 
     fun filterProductsByCategory(category: String) {
